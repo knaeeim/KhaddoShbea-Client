@@ -17,6 +17,10 @@ const Navbar = () => {
             });
     };
 
+    const handleMenuClosing = () => {
+        document.activeElement.blur();
+    }
+
     const links = (
         <>
             <li>
@@ -105,8 +109,9 @@ const Navbar = () => {
                             </svg>
                         </div>
                         <ul
+                            onClick={handleMenuClosing}
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-32 p-2 shadow">
+                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-40 p-2 shadow">
                             {links}
                         </ul>
                     </div>
