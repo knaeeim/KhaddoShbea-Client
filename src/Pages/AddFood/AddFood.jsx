@@ -72,7 +72,7 @@ const AddFood = () => {
                         />
                     </fieldset>
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-                        <label className="fieldset-legend">User Email</label>
+                        <label className="fieldset-legend">Donor Email</label>
                         <input
                             name="email"
                             type="text"
@@ -82,26 +82,37 @@ const AddFood = () => {
                         />
                     </fieldset>
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-                        <label className="fieldset-legend">User Name</label>
-                        <input
-                            name="name"
-                            type="text"
-                            className="input w-full"
-                            value={user?.displayName}
-                            disabled
-                        />
+                        <label className="fieldset-legend">Donor Image and Name</label>
+                        <div className="flex items-center justify-center gap-2">
+                            <img
+                                src={user.photoURL}
+                                className="w-10 rounded-full"
+                            />
+                            <input
+                                name="name"
+                                type="text"
+                                className="input w-full"
+                                value={user?.displayName}
+                                disabled
+                            />
+                        </div>
                     </fieldset>
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-                        <label className="fieldset-legend">Donor Image</label>
+                        <label className="fieldset-legend">Food Status</label>
                         <input
-                            name="donorImage"
                             type="text"
+                            readOnly
+                            defaultValue={"available"}
                             className="input w-full"
-                            placeholder="Enter Your Image Url"
-                            required
                         />
                     </fieldset>
                 </div>
+                <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
+                    <label className="fieldset-legend">Additional Notes</label>
+                    <textarea
+                        className="textarea w-full"
+                        placeholder="Add any Additional Notes"></textarea>
+                </fieldset>
                 <input
                     className="btn btn-primary w-full"
                     type="submit"
