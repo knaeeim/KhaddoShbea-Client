@@ -1,0 +1,115 @@
+import React from "react";
+import useAuth from "../../Hook/useAuth";
+
+const AddFood = () => {
+    const { user } = useAuth();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    };
+
+    return (
+        <div className="max-w-7xl mx-auto p-4 mb-20">
+            <div>
+                <h1 className="text-3xl font-bold text-center mb-5">
+                    Add Food
+                </h1>
+                <p className="text-center text-gray-500 mb-5">
+                    Fill in the details below to add a new Food
+                </p>
+            </div>
+            <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
+                        <label className="fieldset-legend">Food Name</label>
+                        <input
+                            name="foodName"
+                            type="text"
+                            className="input w-full"
+                            placeholder="Enter your Food Name"
+                            required
+                        />
+                    </fieldset>
+                    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
+                        <label className="fieldset-legend">Food Image</label>
+                        <input
+                            name="foodImage"
+                            type="text"
+                            className="input w-full"
+                            placeholder="Enter Your Food Image URL"
+                            required></input>
+                    </fieldset>
+                    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
+                        <label className="fieldset-legend">Food Quantity</label>
+                        <input
+                            name="foodQuantity"
+                            type="text"
+                            className="input w-full"
+                            placeholder="Enter the Quantity"
+                            required
+                        />
+                    </fieldset>
+                    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
+                        <label className="fieldset-legend">
+                            PicUp Location
+                        </label>
+                        <input
+                            name="pickupLocation"
+                            type="text"
+                            className="input w-full"
+                            placeholder="Enter Your Pickup Location"
+                            required
+                        />
+                    </fieldset>
+                    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
+                        <label className="fieldset-legend">Expiry Date </label>
+                        <input
+                            type="date"
+                            name="date"
+                            className="input w-full"
+                            placeholder="Select Expiry Date"
+                            required
+                        />
+                    </fieldset>
+                    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
+                        <label className="fieldset-legend">User Email</label>
+                        <input
+                            name="email"
+                            type="text"
+                            className="input w-full"
+                            value={user?.email}
+                            disabled
+                        />
+                    </fieldset>
+                    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
+                        <label className="fieldset-legend">User Name</label>
+                        <input
+                            name="name"
+                            type="text"
+                            className="input w-full"
+                            value={user?.displayName}
+                            disabled
+                        />
+                    </fieldset>
+                    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
+                        <label className="fieldset-legend">Donor Image</label>
+                        <input
+                            name="donorImage"
+                            type="text"
+                            className="input w-full"
+                            placeholder="Enter Your Image Url"
+                            required
+                        />
+                    </fieldset>
+                </div>
+                <input
+                    className="btn btn-primary w-full"
+                    type="submit"
+                    value="Add Task"
+                />
+            </form>
+        </div>
+    );
+};
+
+export default AddFood;
