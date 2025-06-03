@@ -1,11 +1,30 @@
 import React from "react";
 import useAuth from "../../Hook/useAuth";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const AddFood = () => {
     const { user } = useAuth();
+    const axiosSecure = useAxiosSecure()
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const form = e.target; 
+        const formData = new FormData(form);
+        const formattedData = Object.fromEntries(formData.entries());
+
+        const {date, ...foodData} = formattedData;
+        foodData.date = new Date(date);
+
+        console.log(foodData);
+
+        axiosSecure.post('/addFood', foodData)
+            .then((res) => {
+                if(res.data.insertedId){
+                    toast.success("Food Added Successfully");
+                }
+            })
+            .catch(error => toast.error(error.message));
     };
 
     return (
@@ -78,11 +97,11 @@ const AddFood = () => {
                             type="text"
                             className="input w-full"
                             value={user?.email}
-                            disabled
+                            readOnly
                         />
                     </fieldset>
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-                        <label className="fieldset-legend">Donor Image and Name</label>
+                        <label className="fieldset-legend">Donor Image & Name</label>
                         <div className="flex items-center justify-center gap-2">
                             <img
                                 src={user.photoURL}
@@ -93,7 +112,7 @@ const AddFood = () => {
                                 type="text"
                                 className="input w-full"
                                 value={user?.displayName}
-                                disabled
+                                readOnly
                             />
                         </div>
                     </fieldset>
@@ -101,6 +120,7 @@ const AddFood = () => {
                         <label className="fieldset-legend">Food Status</label>
                         <input
                             type="text"
+                            name="status"
                             readOnly
                             defaultValue={"available"}
                             className="input w-full"
@@ -111,6 +131,7 @@ const AddFood = () => {
                     <label className="fieldset-legend">Additional Notes</label>
                     <textarea
                         className="textarea w-full"
+                        name="notes"
                         placeholder="Add any Additional Notes"></textarea>
                 </fieldset>
                 <input
