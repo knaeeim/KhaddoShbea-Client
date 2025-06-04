@@ -8,7 +8,7 @@ const AvailableFoods = () => {
     const [foods, setFoods] = useState([]);
 
     useEffect(() => {
-        axiosSecure.get('/foods')
+        axiosSecure.get('/foods?sortBy=date')
         .then((res) => {
             setFoods(res.data);
         })

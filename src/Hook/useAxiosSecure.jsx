@@ -10,10 +10,18 @@ const axiosInstance = axios.create({
 const useAxiosSecure = () => {
     const { user, logOutUser } = useAuth();
 
-    axiosInstance.interceptors.request.use((config) => {
-        config.headers.Authorization = `Bearer ${user?.accessToken}`;
-        return config;
-    });
+    axiosInstance.interceptors.request.use(
+        (config) => {
+            const token = user?.accessToken;
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
+            return config;
+        },
+        (error) => {
+            return Promise.reject(error);
+        }
+    );
 
     axiosInstance.interceptors.response.use(
         (response) => response,

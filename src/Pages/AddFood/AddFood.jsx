@@ -13,8 +13,20 @@ const AddFood = () => {
         const formData = new FormData(form);
         const formattedData = Object.fromEntries(formData.entries());
 
-        const {date, ...foodData} = formattedData;
-        foodData.date = new Date(date);
+        const {date, foodQuantity, ...foodData} = formattedData;
+
+        const selectedDate = new Date(date);
+        const today = new Date();
+        selectedDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+
+        if(selectedDate < today) {
+            toast.error("Please select a valid expiry date that is today or in the future.");
+            return;
+        }
+
+        foodData.date = selectedDate;
+        foodData.foodQuantity = parseInt(foodQuantity);
 
         console.log(foodData);
 

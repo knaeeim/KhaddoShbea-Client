@@ -19,7 +19,7 @@ const Navbar = () => {
 
     const handleMenuClosing = () => {
         document.activeElement.blur();
-    }
+    };
 
     const links = (
         <>
@@ -27,8 +27,8 @@ const Navbar = () => {
                 <NavLink
                     className={({ isActive }) =>
                         isActive
-                            ? "bg-blue-500 border-b-3 px-3 py-1.5 rounded-md mx-2"
-                            : "mx-2 px-3 py-2"
+                            ? "border-b-3 px-3 py-1.5 mx-2"
+                            : "mx-2 px-3 py-1.5"
                     }
                     to="/">
                     Home
@@ -38,8 +38,8 @@ const Navbar = () => {
                 <NavLink
                     className={({ isActive }) =>
                         isActive
-                            ? "bg-blue-500 border-b-3 px-3 py-1.5 rounded-md mx-2"
-                            : "mx-2 px-3 py-2"
+                            ? "border-b-3 px-3 py-1.5 mx-2"
+                            : "mx-2 px-3 py-1.5"
                     }
                     to="/availableFoods">
                     Available Foods
@@ -52,8 +52,8 @@ const Navbar = () => {
                         <NavLink
                             className={({ isActive }) =>
                                 isActive
-                                    ? "bg-blue-500 border-b-3 px-3 py-1.5 rounded-md mx-2"
-                                    : "mx-2 px-3 py-2"
+                                    ? "border-b-3 px-3 py-1.5 mx-2"
+                                    : "mx-2 px-3 py-1.5"
                             }
                             to="/addFood">
                             Add Food
@@ -63,8 +63,8 @@ const Navbar = () => {
                         <NavLink
                             className={({ isActive }) =>
                                 isActive
-                                    ? "bg-blue-500 border-b-3 px-3 py-1.5 rounded-md mx-2"
-                                    : "mx-2 px-3 py-2"
+                                    ? "border-b-3 px-3 py-1.5 mx-2"
+                                    : "mx-2 px-3 py-1.5"
                             }
                             to="/manageMyFoods">
                             Manage My Foods
@@ -74,8 +74,8 @@ const Navbar = () => {
                         <NavLink
                             className={({ isActive }) =>
                                 isActive
-                                    ? "bg-blue-500 border-b-3 px-3 py-1.5 rounded-md mx-2"
-                                    : "mx-2 px-3 py-2"
+                                    ? "border-b-3 px-3 py-1.5 mx-2"
+                                    : "mx-2 px-3 py-1.5"
                             }
                             to="/requestedFoods">
                             Requested Foods

@@ -58,7 +58,7 @@ const AvailableFoodDetails = () => {
             notes,
             date,
             requestedUserEmail: user?.email,
-            requestedDate : new Date().toLocaleDateString("en-BD", {
+            requestedDate: new Date().toLocaleDateString("en-BD", {
                 timeZone: "Asia/Dhaka",
                 year: "numeric",
                 month: "long",
@@ -161,11 +161,17 @@ const AvailableFoodDetails = () => {
                     className="w-full p-2 mt-2 border rounded-lg focus:outline-none focus:ring-2"
                     rows="3"
                     placeholder="Add any additional notes or instructions here..."></textarea>
-                <button
-                    onClick={handleRequestedFood}
-                    className="btn btn-primary mt-3 w-full">
-                    Request for this food
-                </button>
+                {user.email !== email ? (
+                    <button
+                        onClick={handleRequestedFood}
+                        className="btn btn-primary mt-3 w-full">
+                        Request for this food
+                    </button>
+                ) : (
+                    <button disabled className="btn btn-primary mt-3 w-full">
+                        You can't request this food
+                    </button>
+                )}
             </div>
         </div>
     );

@@ -1,8 +1,6 @@
-import { FaSackDollar } from "react-icons/fa6";
-import { MdOutlineDateRange } from "react-icons/md";
+import { MdOutlineDateRange, MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { Link } from "react-router";
 import { GrStatusGood } from "react-icons/gr";
-import { CgProfile } from "react-icons/cg";
 
 const FoodCard = ({ food }) => {
     // console.log(post);
@@ -16,7 +14,7 @@ const FoodCard = ({ food }) => {
 
     return (
         <div className="">
-            <div className="block rounded-lg p-4 shadow-xs shadow-indigo-100 border-2">
+            <div className="block rounded-lg p-4 shadow-lg shadow-indigo-100">
                 <img
                     alt=""
                     src={foodImage}
@@ -54,7 +52,7 @@ const FoodCard = ({ food }) => {
                         </div>
 
                         <div className="sm:flex sm:shrink-1 sm:items-center sm:gap-2">
-                            <CgProfile size={29} />
+                            <MdOutlineProductionQuantityLimits size={29} />
                             <div className="mt-1.5 sm:mt-0">
                                 <p className="text-gray-500">Quantity</p>
 
