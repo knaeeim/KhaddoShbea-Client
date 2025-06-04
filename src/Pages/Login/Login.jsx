@@ -20,7 +20,7 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        console.log(email, password);
+        // console.log(email, password);
         // createUserWithEmail and Pass
         loginUser(email, password)
             .then((result) => {
@@ -30,7 +30,7 @@ const Login = () => {
                 navigate(from)
             })
             .catch((error) => {
-                console.log(error.message);
+                toast.error(error.message);
             });
     };
 

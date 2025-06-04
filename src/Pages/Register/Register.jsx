@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import GoogleLogin from "../../SocialLogin/GoogleLogin";
 import useAuth from "../../Hook/useAuth";
+import { checkPassword } from "../../utilities/passwordCheking";
 
 const Register = () => {
     const { createUser, updateUserProfile, setUser } = useAuth();
@@ -18,7 +19,10 @@ const Register = () => {
         const name = form.name.value;
         const photoURL = form.photoURL.value;
 
-        console.log(email, password, name, photoURL);
+        if(!checkPassword(password)){
+            return;
+        }
+        // console.log(email, password, name, photoURL);
         // createUserWithEmail and Pass
         createUser(email, password)
             .then((result) => {
