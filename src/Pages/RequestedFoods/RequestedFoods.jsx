@@ -64,45 +64,53 @@ const RequestedFoods = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {requestedFoods.map((food) => (
+                            {requestedFoods.length > 0 ? (
+                                requestedFoods.map((food) => (
+                                    <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
+                                        <td className="p-3">
+                                            <p>{food.name}</p>
+                                        </td>
+                                        <td className="p-3">
+                                            <p>{food.pickupLocation}</p>
+                                        </td>
+                                        <td className="p-3">
+                                            <p className="dark:text-gray-600">
+                                                {new Date(
+                                                    food.date
+                                                ).toLocaleDateString("en-BD", {
+                                                    timeZone: "Asia/Dhaka",
+                                                    year: "numeric",
+                                                    month: "long",
+                                                    day: "numeric",
+                                                })}
+                                            </p>
+                                        </td>
+                                        <td className="p-3">
+                                            <p className="dark:text-gray-600">
+                                                {new Date(
+                                                    food.requestedDate
+                                                ).toLocaleDateString("en-BD", {
+                                                    timeZone: "Asia/Dhaka",
+                                                    year: "numeric",
+                                                    month: "long",
+                                                    day: "numeric",
+                                                })}
+                                            </p>
+                                        </td>
+                                        <td className="p-3 text-right">
+                                            <span className="px-3 py-1 font-semibold rounded-md dark:bg-violet-600 dark:text-gray-50">
+                                                <span>{food.status}</span>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
                                 <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                                    <td className="p-3">
-                                        <p>{food.name}</p>
-                                    </td>
-                                    <td className="p-3">
-                                        <p>{food.pickupLocation}</p>
-                                    </td>
-                                    <td className="p-3">
-                                        <p className="dark:text-gray-600">
-                                            {new Date(
-                                                food.date
-                                            ).toLocaleDateString("en-BD", {
-                                                timeZone: "Asia/Dhaka",
-                                                year: "numeric",
-                                                month: "long",
-                                                day: "numeric",
-                                            })}
-                                        </p>
-                                    </td>
-                                    <td className="p-3">
-                                        <p className="dark:text-gray-600">
-                                            {new Date(
-                                                food.requestedDate
-                                            ).toLocaleDateString("en-BD", {
-                                                timeZone: "Asia/Dhaka",
-                                                year: "numeric",
-                                                month: "long",
-                                                day: "numeric",
-                                            })}
-                                        </p>
-                                    </td>
-                                    <td className="p-3 text-right">
-                                        <span className="px-3 py-1 font-semibold rounded-md dark:bg-violet-600 dark:text-gray-50">
-                                            <span>{food.status}</span>
-                                        </span>
+                                    <td colSpan="5" className="p-3 text-center">
+                                        No requested foods found.
                                     </td>
                                 </tr>
-                            ))}
+                            )}
                         </tbody>
                     </table>
                 </div>

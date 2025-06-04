@@ -4,7 +4,7 @@ import useAuth from "./useAuth";
 import toast from "react-hot-toast";
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: "https://food-sharing-server-vert.vercel.app",
 });
 
 const useAxiosSecure = () => {
