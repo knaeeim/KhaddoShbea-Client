@@ -1,11 +1,12 @@
 import React from 'react';
 import Slider1 from '../Sliders/Slider1';
+import Banner from '../Banner/Banner';
 
 
 const Home = () => {
     return (
         <div>     
-            <Slider1></Slider1>
+            <Banner></Banner>
         </div>
     );
 };
