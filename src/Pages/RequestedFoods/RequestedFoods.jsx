@@ -19,7 +19,7 @@ const RequestedFoods = () => {
                 setRequestedFoods(res.data);
             })
             .catch((error) => {
-                console.log(error.message);
+                console.log("error message from catch", error.message);
             });
     }, [axiosSecure, user]);
 

@@ -10,11 +10,13 @@ import RequestedFoods from "../Pages/RequestedFoods/RequestedFoods";
 import AvailableFoodDetails from "../Pages/AvaiableFoods/AvailableFoodDetails";
 import Home from "../Pages/Home/Home";
 import UpdateFood from "../Pages/UpdateFood/UpdateFood";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <RootLayOut></RootLayOut>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 index: true, 
