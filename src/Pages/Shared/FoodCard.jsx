@@ -68,7 +68,7 @@ const FoodCard = ({ food }) => {
 
                 <div className="flex justify-center items-center mt-4">
                     <Link
-                        to={`/browseTasks/${_id}`}
+                        to={`/foodDetails/${_id}`}
                         className="btn btn-primary w-full">
                         View Details
                     </Link>
