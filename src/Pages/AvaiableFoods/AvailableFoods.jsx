@@ -13,6 +13,7 @@ const AvailableFoods = () => {
     const [layout, setLayout] = useState(false);
     const [loading, setLoading] = useState(true);
     const [searchText, setSearchText] = useState("");
+    const [submittedSearchText, setSubmittedSearchText] = useState("");
 
     useEffect(() => {
         axiosSecure
@@ -40,9 +41,11 @@ const AvailableFoods = () => {
         event.preventDefault();
         if(!searchText.trim()){
             setFoods(allFoods);
+            setSubmittedSearchText("")
             return;
         }
-
+        
+        setSubmittedSearchText(searchText.trim());
         const filterFoods = allFoods.filter((food) => food.foodName.toLowerCase().includes(searchText.toLowerCase()));
         setFoods(filterFoods);
     }
@@ -74,7 +77,16 @@ const AvailableFoods = () => {
                     Change Layout
                 </button>
             </div>
-
+            {foods.length === 0 ? (
+                <div className="text-center mt-10">
+                    <h2 className="text-2xl font-bold">No Foods Found</h2>
+                    <p className="text-gray-500">Try searching with a different keyword.</p>
+                </div>
+            ) : (
+                <h1 className="text-3xl font-bold text-center mt-5">
+                    {submittedSearchText ? `Search Results for "${submittedSearchText}"` : "All available foods 🍊"}
+                </h1>
+            )}
             <div
                 className={`grid grid-cols-1 md:grid-cols-2 ${
                     layout ? "lg:grid-cols-2" : "lg:grid-cols-3"

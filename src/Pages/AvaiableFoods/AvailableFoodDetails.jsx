@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import toast from "react-hot-toast";
 import useAuth from "../../Hook/useAuth";
 
@@ -9,6 +9,7 @@ const AvailableFoodDetails = () => {
     const axiosSecure = useAxiosSecure();
     const [food, setFood] = useState([]);
     const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         axiosSecure
@@ -78,11 +79,12 @@ const AvailableFoodDetails = () => {
                     axiosSecure
                         .delete(`/foods/${_id}`)
                         .then((deleteRes) => {
-                            console.log(deleteRes);
+                            // console.log(deleteRes);
                             if (deleteRes.data.deletedCount) {
-                                console.log(
-                                    "Food Removed from Available Foods"
-                                );
+                                // console.log(
+                                //     "Food Removed from Available Foods"
+                                // );
+                                navigate('/requestedFoods');
                             }
                         })
                         .catch((deleteError) => {
