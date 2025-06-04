@@ -2,23 +2,29 @@ import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import toast from "react-hot-toast";
 import FoodCard from "../Shared/FoodCard";
+import Loading from "../LoadingPage/Loading";
 
 const AvailableFoods = () => {
     const axiosSecure = useAxiosSecure();
     const [foods, setFoods] = useState([]);
     const [layout, setLayout] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         axiosSecure
             .get("/foods?sortBy=date")
             .then((res) => {
                 setFoods(res.data);
+                setLoading(false);
             })
             .catch((error) => {
                 toast.error("Failed to fetch foods: " + error.message);
             });
     }, [axiosSecure]);
 
+    if(loading) {
+        return <Loading></Loading>
+    }
 
     return (
         <div className="md:max-w-[1780px] mx-auto my-10 px-4 md:px-10">

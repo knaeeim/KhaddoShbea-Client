@@ -4,16 +4,19 @@ import useAuth from "../../Hook/useAuth";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
+import Loading from "../LoadingPage/Loading";
 
 const ManageFoods = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [myFoods, setMyFoods] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         axiosSecure
             .get(`/foods?sortBy=email&email=${user?.email}`)
             .then((res) => {
+                setLoading(false);
                 setMyFoods(res.data);
             })
             .catch((error) => {
@@ -39,6 +42,7 @@ const ManageFoods = () => {
                         setMyFoods(
                             myFoods.filter((food) => food._id !== foodId)
                         );
+                        setLoading(false);
                         Swal.fire({
                             title: "Deleted!",
                             text: "Your file has been deleted.",
@@ -49,6 +53,10 @@ const ManageFoods = () => {
             }
         });
     };
+
+    if(loading){
+        return <Loading></Loading>
+    }
 
     return (
         <div className="md:max-w-[1780px] mx-auto my-10 px-4 md:px-10">

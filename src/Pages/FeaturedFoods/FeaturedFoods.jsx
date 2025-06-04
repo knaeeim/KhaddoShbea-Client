@@ -4,21 +4,28 @@ import useAxiosSecure from "../../Hook/useAxiosSecure";
 import toast from "react-hot-toast";
 import FoodCard from "../Shared/FoodCard";
 import { Link } from "react-router";
+import Loading from "../LoadingPage/Loading";
 
 const FeaturedFoods = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [featuredFoods, setFeaturedFoods] = useState([]);
+    const [loading, setLoading] = useState(true);
     
     useEffect(() => {
         axiosSecure.get('/foods?sortBy=quantity&limit=6')
         .then(res => {
             setFeaturedFoods(res.data);
+            setLoading(false);
         })
         .catch(error => {
             toast.error("Failed to fetch featured foods: " + error.message);
         })
     }, [axiosSecure, user])
+
+    if(loading) {
+        return <Loading></Loading>
+    }
 
     return <div>
         <div className="md:max-w-[1780px] mx-auto my-10 px-4 md:px-10">
