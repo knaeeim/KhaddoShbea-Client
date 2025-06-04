@@ -7,14 +7,17 @@ import Loading from "../LoadingPage/Loading";
 const AvailableFoods = () => {
     const axiosSecure = useAxiosSecure();
     const [foods, setFoods] = useState([]);
+    const [allFoods, setAllFoods] = useState([])
     const [layout, setLayout] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [searchText, setSearchText] = useState("");
 
     useEffect(() => {
         axiosSecure
             .get("/foods?sortBy=date")
             .then((res) => {
                 setFoods(res.data);
+                setAllFoods(res.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -28,7 +31,13 @@ const AvailableFoods = () => {
 
     const handleSearch = (event) => {
         event.preventDefault();
+        if(!searchText.trim()){
+            setFoods(allFoods);
+            return;
+        }
 
+        const filterFoods = allFoods.filter((food) => food.foodName.toLowerCase().includes(searchText.toLowerCase()));
+        setFoods(filterFoods);
     }
 
     return (
@@ -38,13 +47,16 @@ const AvailableFoods = () => {
                 <h1 className="md:text-4xl text-2xl text-center font-bold">
                     Search your desired food from <br /> all available foods:
                 </h1>
-                <form onChange={handleSearch}>
+                <form onSubmit={handleSearch} className="flex flex-col items-center justify-center gap-3">
                     <input
+                        onChange={(e) => setSearchText(e.target.value)}
+                        // value={searchText}
                         className="md:w-8/12 w-full py-3 px-6 rounded-3xl border-2"
                         type="search"
                         name="search"
                         placeholder="Search by Name.."
                     />
+                    <button className="btn btn-primary md:w-1/8 w-4/8 rounded-4xl">Search Now</button>
                 </form>
             </div>
 
