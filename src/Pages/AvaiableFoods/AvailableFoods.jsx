@@ -22,27 +22,44 @@ const AvailableFoods = () => {
             });
     }, [axiosSecure]);
 
-    if(loading) {
-        return <Loading></Loading>
+    if (loading) {
+        return <Loading></Loading>;
+    }
+
+    const handleSearch = (event) => {
+        event.preventDefault();
+
     }
 
     return (
         <div className="md:max-w-[1780px] mx-auto my-10 px-4 md:px-10">
-            <div>
-                <h1 className="text-3xl font-bold text-center">
-                    All Available Foods...
+
+            <div className="text-center mb-10 space-y-6">
+                <h1 className="md:text-4xl text-2xl text-center font-bold">
+                    Search your desired food from <br /> all available foods:
                 </h1>
-                <p className="text-center text-gray-500 mb-5">
-                    Here you can find all the available foods posted by users. You can change the layout of the food cards by clicking the button below.
-                </p>
+                <form onChange={handleSearch}>
+                    <input
+                        className="md:w-8/12 w-full py-3 px-6 rounded-3xl border-2"
+                        type="search"
+                        name="search"
+                        placeholder="Search by Name.."
+                    />
+                </form>
             </div>
 
             <div className="md:flex justify-end mt-5 hidden">
-                <button onClick={() => setLayout(prev => !prev)} className="btn btn-md btn-primary">
+                <button
+                    onClick={() => setLayout((prev) => !prev)}
+                    className="btn btn-md btn-primary">
                     Change Layout
                 </button>
             </div>
-            <div className={`grid grid-cols-1 md:grid-cols-2 ${layout ? "lg:grid-cols-2" : "lg:grid-cols-3"} gap-3 mt-6`}>
+
+            <div
+                className={`grid grid-cols-1 md:grid-cols-2 ${
+                    layout ? "lg:grid-cols-2" : "lg:grid-cols-3"
+                } gap-3 mt-3`}>
                 {foods.map((food) => (
                     <FoodCard key={food._id} food={food}></FoodCard>
                 ))}
