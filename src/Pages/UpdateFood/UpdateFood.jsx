@@ -1,60 +1,86 @@
-import React from "react";
 import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
+import { useNavigate, useParams } from "react-router";
 import toast from "react-hot-toast";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import Loading from "../LoadingPage/Loading";
 
-const AddFood = () => {
+const UpdateFood = () => {
     const { user } = useAuth();
-    const axiosSecure = useAxiosSecure()
+    const axiosSecure = useAxiosSecure();
+    const { id } = useParams();
+    const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const form = e.target; 
+    const mutation = useMutation({
+        mutationFn: (updatedFood) => {
+            return axiosSecure.put(`/foods/${id}`, updatedFood);
+        },
+        onSuccess: (data) => {
+            if(data.data.modifiedCount){
+                toast.success("Food updated successfully!");
+                navigate("/manageMyFoods");
+            }
+            else {
+                toast.error("Please change at least one field to update the food.");
+            }           
+        }
+    });
+
+    const {
+        data: food,
+        isError,
+        error,
+        isLoading,
+    } = useQuery({
+        queryKey: ["food", id],
+        queryFn: () => axiosSecure.get(`/foods/${id}`).then((res) => res.data),
+    });
+
+    const handleUpdateFood = (event) => {
+        event.preventDefault();
+        const form = event.target;
         const formData = new FormData(form);
-        const formattedData = Object.fromEntries(formData.entries());
-
-        const {date, foodQuantity, ...foodData} = formattedData;
-
+        const updatedFood = Object.fromEntries(formData.entries());
+        const {date, foodQuantity, ...foodData} = updatedFood;
         const selectedDate = new Date(date);
         const today = new Date();
         selectedDate.setHours(0, 0, 0, 0);
         today.setHours(0, 0, 0, 0);
-
         if(selectedDate < today) {
             toast.error("Please select a valid expiry date that is today or in the future.");
             return;
         }
-
         foodData.date = selectedDate;
         foodData.foodQuantity = parseInt(foodQuantity);
-
-        console.log(foodData);
-
-        axiosSecure.post('/addFood', foodData)
-            .then((res) => {
-                if(res.data.insertedId){
-                    toast.success("Food Added Successfully");
-                }
-            })
-            .catch(error => toast.error(error.message));
+        
+        mutation.mutate(foodData);
     };
+
+    if (isLoading) {
+        return <Loading></Loading>;
+    }
+
+    if (isError) {
+        return toast.error(`Error fetching food details: ${error.message}`);
+    }
 
     return (
         <div className="max-w-7xl mx-auto p-4 mb-20">
             <div>
                 <h1 className="text-3xl font-bold text-center mb-5">
-                    Add Food
+                    Update Food
                 </h1>
                 <p className="text-center text-gray-500 mb-5">
-                    Fill in the details below to add a new Food
+                    Fill in the details below to update a existing Food
                 </p>
             </div>
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleUpdateFood} className="space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                         <label className="fieldset-legend">Food Name</label>
                         <input
                             name="foodName"
+                            defaultValue={food?.foodName}
                             type="text"
                             className="input w-full"
                             placeholder="Enter your Food Name"
@@ -65,6 +91,7 @@ const AddFood = () => {
                         <label className="fieldset-legend">Food Image</label>
                         <input
                             name="foodImage"
+                            defaultValue={food?.foodImage}
                             type="text"
                             className="input w-full"
                             placeholder="Enter Your Food Image URL"
@@ -74,6 +101,7 @@ const AddFood = () => {
                         <label className="fieldset-legend">Food Quantity</label>
                         <input
                             name="foodQuantity"
+                            defaultValue={food?.foodQuantity}
                             type="text"
                             className="input w-full"
                             placeholder="Enter the Quantity"
@@ -86,6 +114,7 @@ const AddFood = () => {
                         </label>
                         <input
                             name="pickupLocation"
+                            defaultValue={food?.pickupLocation}
                             type="text"
                             className="input w-full"
                             placeholder="Enter Your Pickup Location"
@@ -96,6 +125,13 @@ const AddFood = () => {
                         <label className="fieldset-legend">Expiry Date </label>
                         <input
                             type="date"
+                            defaultValue={
+                                food?.date
+                                    ? new Date(food?.date)
+                                          .toISOString()
+                                          .split("T")[0]
+                                    : ""
+                            }
                             name="date"
                             className="input w-full"
                             placeholder="Select Expiry Date"
@@ -113,7 +149,9 @@ const AddFood = () => {
                         />
                     </fieldset>
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-                        <label className="fieldset-legend">Donor Image & Name</label>
+                        <label className="fieldset-legend">
+                            Donor Image & Name
+                        </label>
                         <div className="flex items-center justify-center gap-2">
                             <img
                                 src={user.photoURL}
@@ -134,7 +172,7 @@ const AddFood = () => {
                             type="text"
                             name="status"
                             readOnly
-                            defaultValue={"available"}
+                            defaultValue={"Available"}
                             className="input w-full"
                         />
                     </fieldset>
@@ -149,11 +187,11 @@ const AddFood = () => {
                 <input
                     className="btn btn-primary w-full"
                     type="submit"
-                    value="Add Food"
+                    value="Update Food"
                 />
             </form>
         </div>
     );
 };
 
-export default AddFood;
+export default UpdateFood;

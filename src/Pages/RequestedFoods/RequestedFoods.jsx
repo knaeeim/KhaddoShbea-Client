@@ -2,16 +2,19 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import FoodCard from "../Shared/FoodCard";
+import Loading from "../LoadingPage/Loading";
 
 const RequestedFoods = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [requestedFoods, setRequestedFoods] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         axiosSecure
             .get(`/myRequestedFoods?email=${user?.email}`)
             .then((res) => {
+                setLoading(false);
                 console.log(res.data);
                 setRequestedFoods(res.data);
             })
@@ -19,6 +22,10 @@ const RequestedFoods = () => {
                 console.log(error.message);
             });
     }, [axiosSecure, user]);
+
+    if (loading) {
+        return <Loading></Loading>;
+    }
 
     return (
         <div className="md:max-w-[1780px] mx-auto my-10 px-4 md:px-10">
@@ -61,17 +68,21 @@ const RequestedFoods = () => {
                                     </td>
                                     <td className="p-3">
                                         <p className="dark:text-gray-600">
-                                           {new Date(food.date).toLocaleDateString("en-BD", {
+                                            {new Date(
+                                                food.date
+                                            ).toLocaleDateString("en-BD", {
                                                 timeZone: "Asia/Dhaka",
                                                 year: "numeric",
                                                 month: "long",
                                                 day: "numeric",
-                                            })} 
+                                            })}
                                         </p>
                                     </td>
                                     <td className="p-3">
                                         <p className="dark:text-gray-600">
-                                            {new Date(food.requestedDate).toLocaleDateString("en-BD", {
+                                            {new Date(
+                                                food.requestedDate
+                                            ).toLocaleDateString("en-BD", {
                                                 timeZone: "Asia/Dhaka",
                                                 year: "numeric",
                                                 month: "long",

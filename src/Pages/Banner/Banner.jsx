@@ -30,7 +30,6 @@ const Banner = () => {
             <SwiperSlide><Slider2></Slider2></SwiperSlide>
             <SwiperSlide><Slider3></Slider3></SwiperSlide>
             <SwiperSlide><Slider4></Slider4></SwiperSlide>
-            ...
         </Swiper>
     );
 };
