@@ -7,7 +7,7 @@ import { Link } from "react-router";
 import Loading from "../LoadingPage/Loading";
 
 const FeaturedFoods = () => {
-    const { user } = useAuth();
+    const { user, logOutUser } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [featuredFoods, setFeaturedFoods] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -19,9 +19,14 @@ const FeaturedFoods = () => {
             setLoading(false);
         })
         .catch(error => {
+            logOutUser()
+                    .then(() => {})
+                    .catch((error) => {
+                        toast.error("Failed to log out: " + error.message);
+                    });
             toast.error("Failed to fetch featured foods: " + error.message);
         })
-    }, [axiosSecure, user])
+    }, [axiosSecure, user, logOutUser])
 
     if(loading) {
         return <Loading></Loading>

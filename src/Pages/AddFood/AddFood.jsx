@@ -4,24 +4,26 @@ import useAxiosSecure from "../../Hook/useAxiosSecure";
 import toast from "react-hot-toast";
 
 const AddFood = () => {
-    const { user } = useAuth();
-    const axiosSecure = useAxiosSecure()
+    const { user, logOutUser } = useAuth();
+    const axiosSecure = useAxiosSecure();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const form = e.target; 
+        const form = e.target;
         const formData = new FormData(form);
         const formattedData = Object.fromEntries(formData.entries());
 
-        const {date, foodQuantity, ...foodData} = formattedData;
+        const { date, foodQuantity, ...foodData } = formattedData;
 
         const selectedDate = new Date(date);
         const today = new Date();
         selectedDate.setHours(0, 0, 0, 0);
         today.setHours(0, 0, 0, 0);
 
-        if(selectedDate < today) {
-            toast.error("Please select a valid expiry date that is today or in the future.");
+        if (selectedDate < today) {
+            toast.error(
+                "Please select a valid expiry date that is today or in the future."
+            );
             return;
         }
 
@@ -30,13 +32,21 @@ const AddFood = () => {
 
         console.log(foodData);
 
-        axiosSecure.post('/addFood', foodData)
+        axiosSecure
+            .post("/addFood", foodData)
             .then((res) => {
-                if(res.data.insertedId){
+                if (res.data.insertedId) {
                     toast.success("Food Added Successfully");
                 }
             })
-            .catch(error => toast.error(error.message));
+            .catch((error) => {
+                logOutUser()
+                    .then(() => {})
+                    .catch((error) => {
+                        toast.error("Failed to log out: " + error.message);
+                    });
+                toast.error(error.message);
+            });
     };
 
     return (
@@ -113,7 +123,9 @@ const AddFood = () => {
                         />
                     </fieldset>
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-                        <label className="fieldset-legend">Donor Image & Name</label>
+                        <label className="fieldset-legend">
+                            Donor Image & Name
+                        </label>
                         <div className="flex items-center justify-center gap-2">
                             <img
                                 src={user.photoURL}

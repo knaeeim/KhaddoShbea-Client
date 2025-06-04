@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import Loading from "../LoadingPage/Loading";
 
 const ManageFoods = () => {
-    const { user } = useAuth();
+    const { user, logOutUser } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [myFoods, setMyFoods] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -20,10 +20,15 @@ const ManageFoods = () => {
                 setMyFoods(res.data);
             })
             .catch((error) => {
+                logOutUser()
+                    .then(() => {})
+                    .catch((error) => {
+                        toast.error("Failed to log out: " + error.message);
+                    });
                 toast.error("Failed to fetch your foods: " + error.message);
                 console.error("Error fetching foods:", error);
             });
-    }, [axiosSecure, user]);
+    }, [axiosSecure, user, logOutUser]);
 
     const handleDeleteFood = (foodId) => {
         console.log(foodId);
