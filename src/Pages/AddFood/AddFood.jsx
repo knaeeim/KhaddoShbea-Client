@@ -4,7 +4,7 @@ import useAxiosSecure from "../../Hook/useAxiosSecure";
 import toast from "react-hot-toast";
 
 const AddFood = () => {
-    const { user, logOutUser } = useAuth();
+    const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
 
     const handleSubmit = (e) => {
@@ -40,11 +40,6 @@ const AddFood = () => {
                 }
             })
             .catch((error) => {
-                logOutUser()
-                    .then(() => {})
-                    .catch((error) => {
-                        toast.error("Failed to log out: " + error.message);
-                    });
                 toast.error(error.message);
             });
     };

@@ -19,11 +19,6 @@ const FeaturedFoods = () => {
             setLoading(false);
         })
         .catch(error => {
-            logOutUser()
-                    .then(() => {})
-                    .catch((error) => {
-                        toast.error("Failed to log out: " + error.message);
-                    });
             toast.error("Failed to fetch featured foods: " + error.message);
         })
     }, [axiosSecure, user, logOutUser])

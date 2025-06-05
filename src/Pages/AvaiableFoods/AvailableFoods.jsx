@@ -3,10 +3,8 @@ import useAxiosSecure from "../../Hook/useAxiosSecure";
 import toast from "react-hot-toast";
 import FoodCard from "../Shared/FoodCard";
 import Loading from "../LoadingPage/Loading";
-import useAuth from "../../Hook/useAuth";
 
 const AvailableFoods = () => {
-    const { logOutUser } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [foods, setFoods] = useState([]);
     const [allFoods, setAllFoods] = useState([])
@@ -24,14 +22,9 @@ const AvailableFoods = () => {
                 setLoading(false);
             })
             .catch((error) => {
-                logOutUser()
-                    .then(() => {})
-                    .catch((error) => {
-                        toast.error("Failed to log out: " + error.message);
-                    });
-                toast.error("Failed to fetch foods: " + error.message);
+                toast.error("Failed to fetch foods: " + error.message + "Please Reload the page");
             });
-    }, [axiosSecure, logOutUser]);
+    }, [axiosSecure]);
 
     if (loading) {
         return <Loading></Loading>;

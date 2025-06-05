@@ -76,7 +76,7 @@ const AvailableFoodDetails = () => {
         axiosSecure
             .post("/myRequestedFoods", requestedFood)
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.insertedId) {
                     toast.success("Food requested successfully!");
                     addNotesRef.current.value = "";
