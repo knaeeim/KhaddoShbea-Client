@@ -7,7 +7,7 @@ const Slider3 = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 items-center justify-center py-10 md:px-20 px-8 gap-10 bg-gray-300">
             <div className="leading-24">
                 <motion.h1
-                    className="text-3xl md:text-6xl font-bold"
+                    className="text-3xl md:text-4xl lg:text-6xl font-bold"
                     animate={{ x: [20, 0, 20], opacity: [0, 1, 0] }}
                     transition={{
                         duration: 3,

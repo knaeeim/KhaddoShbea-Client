@@ -38,7 +38,7 @@ const BiggestDonner = () => {
                 </p>
             </div>
             <div className="max-w-[1480px] w-full mx-auto px-5">
-                <div className="flex justify-between items-center gap-5">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-5">
                     {items.map((item, index) => (
                         <BiggestDonnerCard
                             key={index}

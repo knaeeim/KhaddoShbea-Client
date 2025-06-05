@@ -28,7 +28,9 @@ const useAxiosSecure = () => {
         (error) => {
             if (error.status === 401 || error.status === 403) {
                 logOutUser()
-                    .then(() => {})
+                    .then(() => {
+                        toast.error("401 or 403 Error Happened Please Reload and Login Again")
+                    })
                     .catch((error) =>
                         toast.error(
                             `Something went wrong while logging out error is ${error}!`
