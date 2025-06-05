@@ -155,7 +155,7 @@ const UpdateFood = () => {
                         <div className="flex items-center justify-center gap-2">
                             <img
                                 src={user.photoURL}
-                                className="w-10 rounded-full"
+                                className="w-10 h-10 object-cover rounded-full"
                             />
                             <input
                                 name="name"

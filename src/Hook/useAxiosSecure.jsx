@@ -11,8 +11,8 @@ const useAxiosSecure = () => {
     const { user, logOutUser } = useAuth();
 
     axiosInstance.interceptors.request.use(
-        (config) => {
-            const token = user?.accessToken;
+        async (config) => {
+            const token = await user?.accessToken;
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`;
             }

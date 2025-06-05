@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import useAuth from "../../Hook/useAuth";
 
@@ -20,6 +20,10 @@ const Navbar = () => {
     const handleMenuClosing = () => {
         document.activeElement.blur();
     };
+
+    const handleClosingMenuProfile = () => {
+        document.activeElement.blur();
+    }
 
     const links = (
         <>
@@ -133,10 +137,27 @@ const Navbar = () => {
                 <div className="navbar-end gap-4">
                     {user ? (
                         <>
-                            <div className="avatar">
-                                <div className="ring-primary ring-offset-base-100 w-6 rounded-full ring-2 ring-offset-2">
-                                    <img src={user?.photoURL} />
+                            <div className="dropdown dropdown-end">
+                                <div
+                                    tabIndex={0}
+                                    role="button"
+                                    className="btn btn-ghost btn-circle avatar">
+                                    <div className="w-8 rounded-full">
+                                        <img
+                                            alt="user"
+                                            src={user?.photoURL}
+                                        />
+                                    </div>
                                 </div>
+                                <ul
+                                    tabIndex={0}
+                                    className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                                    <li onClick={handleClosingMenuProfile}>
+                                        <Link to='/updateUserInfo' className="justify-between">
+                                            Profile
+                                        </Link>
+                                    </li>
+                                </ul>
                             </div>
                             <button
                                 onClick={handleLogOut}
