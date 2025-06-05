@@ -53,14 +53,14 @@ const Register = () => {
 
     return (
         <div className="hero min-h-[calc(100vh-150px)] mb-10">
-            <div className="flex flex-col-reverse justify-between lg:flex-row-reverse md:max-w-5xl w-full mx-auto shadow-2xl rounded-2xl md:py-10 md:px-10 px-5 py-5">
+            <div className="flex flex-col-reverse justify-between items-center md:gap-10 lg:flex-row-reverse md:max-w-5xl w-full mx-auto shadow-2xl rounded-2xl md:py-10 md:px-10 px-5 py-5">
                 <div className="text-center hidden md:block">
                     <Lottie
-                        className="w-full md:w-[500px]"
+                        className="w-full md:w-[420px]"
                         animationData={registerLottie}
                         loop={true}></Lottie>
                 </div>
-                <div className="card bg-base-100 w-full md:max-w-lg shrink-0 shadow-2xl border-2 mb-10 md:mb-0">
+                <div className="card bg-base-100 w-full md:max-w-lg shrink-1 shadow-2xl border-2 mb-10 md:mb-0">
                     <div className="card-body">
                         <h1 className="text-3xl font-bold text-center">
                             Register now!
