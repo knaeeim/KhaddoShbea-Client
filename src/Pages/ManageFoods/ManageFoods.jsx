@@ -107,12 +107,12 @@ const ManageFoods = () => {
                                             <p className="dark:text-gray-600">
                                                 {new Date(
                                                     food.date
-                                                ).toLocaleDateString("en-BD", {
+                                                ).toISOString("en-BD", {
                                                     timeZone: "Asia/Dhaka",
                                                     year: "numeric",
                                                     month: "long",
                                                     day: "numeric",
-                                                })}
+                                                }).split('T')[0]}
                                             </p>
                                         </td>
                                         <td className="p-3">

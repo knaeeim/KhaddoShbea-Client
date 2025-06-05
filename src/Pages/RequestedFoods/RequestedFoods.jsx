@@ -4,6 +4,7 @@ import useAxiosSecure from "../../Hook/useAxiosSecure";
 import FoodCard from "../Shared/FoodCard";
 import Loading from "../LoadingPage/Loading";
 import toast from "react-hot-toast";
+import { formateLocalDate } from "../../utilities/LocalTimeConverter";
 
 const RequestedFoods = () => {
     const { user, logOutUser } = useAuth();
@@ -75,26 +76,12 @@ const RequestedFoods = () => {
                                         </td>
                                         <td className="p-3">
                                             <p className="dark:text-gray-600">
-                                                {new Date(
-                                                    food.date
-                                                ).toLocaleDateString("en-BD", {
-                                                    timeZone: "Asia/Dhaka",
-                                                    year: "numeric",
-                                                    month: "long",
-                                                    day: "numeric",
-                                                })}
+                                                {formateLocalDate(food.date)}
                                             </p>
                                         </td>
                                         <td className="p-3">
                                             <p className="dark:text-gray-600">
-                                                {new Date(
-                                                    food.requestedDate
-                                                ).toLocaleDateString("en-BD", {
-                                                    timeZone: "Asia/Dhaka",
-                                                    year: "numeric",
-                                                    month: "long",
-                                                    day: "numeric",
-                                                })}
+                                                {formateLocalDate(food.requestedDate)}
                                             </p>
                                         </td>
                                         <td className="p-3 text-right">

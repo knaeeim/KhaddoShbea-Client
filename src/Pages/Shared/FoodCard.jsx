@@ -5,12 +5,12 @@ import { GrStatusGood } from "react-icons/gr";
 const FoodCard = ({ food }) => {
     // console.log(post);
     const { _id, foodName, foodImage, foodQuantity, status, date } = food;
-    const convDate = new Date(date).toLocaleDateString("en-BD", {
+    const convDate = new Date(date).toISOString("en-BD", {
         timeZone: "Asia/Dhaka",
         year: "numeric",
         month: "long",
         day: "numeric"
-    })
+    }).split('T')[0];
 
     return (
         <div className="">

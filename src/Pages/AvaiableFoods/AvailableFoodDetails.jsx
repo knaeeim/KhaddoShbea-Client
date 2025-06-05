@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import toast from "react-hot-toast";
 import useAuth from "../../Hook/useAuth";
 import Loading from "../LoadingPage/Loading";
+import { formateLocalDate } from "../../utilities/LocalTimeConverter";
 
 const AvailableFoodDetails = () => {
     const { user } = useAuth();
@@ -40,12 +41,12 @@ const AvailableFoodDetails = () => {
         date,
     } = food;
 
-    const convDate = new Date(date).toLocaleDateString("en-BD", {
-        timeZone: "Asia/Dhaka",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
+    // const convDate = new Date(date).toISOString("en-BD", {
+    //     timeZone: "Asia/Dhaka",
+    //     year: "numeric",
+    //     month: "long",
+    //     day: "numeric"
+    // }).split('T')[0];
 
     const addNotesRef = useRef();
 
@@ -62,7 +63,7 @@ const AvailableFoodDetails = () => {
             notes,
             date,
             requestedUserEmail: user?.email,
-            requestedDate: new Date().toLocaleDateString("en-BD", {
+            requestedDate: new Date().toDateString("en-BD", {
                 timeZone: "Asia/Dhaka",
                 year: "numeric",
                 month: "long",
@@ -121,7 +122,7 @@ const AvailableFoodDetails = () => {
                 {foodName}
             </h2>
             <p className="text-sm text-gray-500 mb-4 italic">
-                Expiry Date: {convDate}
+                Expiry Date: {formateLocalDate(date)}
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700 text-base">
@@ -190,7 +191,7 @@ const AvailableFoodDetails = () => {
                             {foodName}
                         </h2>
                         <p className="text-sm text-gray-500 mb-4 italic">
-                            Expiry Date: {convDate}
+                            Expiry Date: {formateLocalDate(date)}
                         </p>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700 text-base">
@@ -216,11 +217,15 @@ const AvailableFoodDetails = () => {
                                 {pickupLocation}
                             </p>
                             <p>
-                                <span className="font-semibold">Donor Name: </span>{" "}
+                                <span className="font-semibold">
+                                    Donor Name:{" "}
+                                </span>{" "}
                                 {name}
                             </p>
                             <p>
-                                <span className="font-semibold">Donor Email: </span>{" "}
+                                <span className="font-semibold">
+                                    Donor Email:{" "}
+                                </span>{" "}
                                 {email}
                             </p>
                             <p>
@@ -233,20 +238,21 @@ const AvailableFoodDetails = () => {
                                 <span className="font-semibold">
                                     Requested Time:
                                 </span>{" "}
-                                {new Date().toLocaleDateString("en-BD", {
-                                    timeZone: "Asia/Dhaka",
-                                    year: "numeric",
-                                    month: "short",
-                                    day: "numeric",
-                                })}
+                                {
+                                    new Date()
+                                        .toISOString("en-BD", {
+                                            timeZone: "Asia/Dhaka",
+                                            year: "numeric",
+                                            month: "short",
+                                            day: "numeric",
+                                        })
+                                        .split("T")[0]
+                                }
                             </p>
                             <p>
-                                <span className="font-semibold">
-                                    id:
-                                </span>{" "}
+                                <span className="font-semibold">id:</span>{" "}
                                 {food?._id}
                             </p>
-                            
                         </div>
 
                         {notes && (
