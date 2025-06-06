@@ -169,7 +169,7 @@ const AvailableFoodDetails = () => {
                     <button
                         className="btn btn-primary mt-3 w-full"
                         onClick={() =>
-                            document.getElementById("my_modal_1").showModal()
+                            document.getElementById(_id).showModal()
                         }>
                         Request for this Food
                     </button>
@@ -179,7 +179,7 @@ const AvailableFoodDetails = () => {
                     </button>
                 )}
                 {/* Open the modal using document.getElementById('ID').showModal() method */}
-                <dialog id="my_modal_1" className="modal">
+                <dialog id={_id} className="modal">
                     <div className="modal-box">
                         <img
                             src={foodImage}
@@ -274,11 +274,14 @@ const AvailableFoodDetails = () => {
                                 placeholder="Add any additional notes or instructions here..."></textarea>
                         </div>
                         <div className="modal-action">
-                            <form method="dialog">
+                            <form method="dialog" className="flex items-center justify-center gap-4">
+                                <button onClick={() => document.getElementById(_id).close()} className="btn btn-warning mt-3 text-black">
+                                    Close
+                                </button>
                                 {/* if there is a button in form, it will close the modal */}
                                 <button
                                     onClick={handleRequestedFood}
-                                    className="btn btn-primary mt-3 w-full">
+                                    className="btn btn-primary mt-3">
                                     Request Now
                                 </button>
                             </form>

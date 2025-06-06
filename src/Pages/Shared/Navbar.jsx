@@ -1,6 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import useAuth from "../../Hook/useAuth";
+import { Tooltip } from "react-tooltip";
 
 const Navbar = () => {
     const { user, logOutUser } = useAuth();
@@ -126,9 +127,9 @@ const Navbar = () => {
                             src="https://i.ibb.co/wb7VMSN/Khaddo-Sheba-90-x-50-px.png"
                             alt=""
                         />
-                        <a className="text-xl font-bold lg:block hidden">
+                        <Link to="/" className="text-xl font-bold lg:block hidden">
                             KhaddoSheba
-                        </a>
+                        </Link>
                     </div>
                 </div>
                 <div className="navbar-center hidden lg:flex">
@@ -139,6 +140,9 @@ const Navbar = () => {
                         <>
                             <div className="dropdown dropdown-end">
                                 <div
+                                    data-tooltip-id="userName"
+                                    data-tooltip-content={user?.displayName}
+                                    data-tooltip-place="left"
                                     tabIndex={0}
                                     role="button"
                                     className="btn btn-ghost btn-circle avatar">
@@ -147,6 +151,7 @@ const Navbar = () => {
                                             alt="user"
                                             src={user?.photoURL}
                                         />
+                                        <Tooltip id="userName"></Tooltip>
                                     </div>
                                 </div>
                                 <ul

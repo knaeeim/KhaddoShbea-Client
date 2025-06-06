@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import toast from "react-hot-toast";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Loading from "../LoadingPage/Loading";
+import ErrorPage from "../ErrorPage/ErrorPage";
 
 const UpdateFood = () => {
     const { user } = useAuth();
@@ -61,7 +62,8 @@ const UpdateFood = () => {
     }
 
     if (isError) {
-        return toast.error(`Error fetching food details: ${error.message}`);
+        toast.error(`Error fetching food details: ${error.message}`);
+        return <ErrorPage error={error.message}></ErrorPage>
     }
 
     return (

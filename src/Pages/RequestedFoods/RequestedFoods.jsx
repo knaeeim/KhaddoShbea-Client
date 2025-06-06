@@ -13,7 +13,8 @@ const RequestedFoods = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axiosSecure
+        if(user){
+            axiosSecure
             .get(`/myRequestedFoods?email=${user?.email}`)
             .then((res) => {
                 setLoading(false);
@@ -21,13 +22,15 @@ const RequestedFoods = () => {
                 setRequestedFoods(res.data);
             })
             .catch((error) => {
-                logOutUser()
-                    .then(() => {})
-                    .catch((error) => {
-                        toast.error("Failed to log out: " + error.message);
-                    });
+                setLoading(false);
+                // logOutUser()
+                //     .then(() => {})
+                //     .catch((error) => {
+                //         toast.error("Failed to log out: " + error.message);
+                //     });
                 toast.error(error.message);
             });
+        }
     }, [axiosSecure, user, logOutUser]);
 
     if (loading) {
