@@ -175,7 +175,7 @@ const AvailableFoodDetails = () => {
                     </button>
                 ) : (
                     <button disabled className="btn btn-primary mt-3 w-full">
-                        You can't request this food
+                        You can't request for your added food
                     </button>
                 )}
                 {/* Open the modal using document.getElementById('ID').showModal() method */}
