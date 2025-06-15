@@ -7,7 +7,7 @@ import GoogleLogin from "../../SocialLogin/GoogleLogin";
 import toast from "react-hot-toast";
 
 const Login = () => {
-    const { loginUser } = use(AuthContext);
+    const { loginUser, setUser, setLoading } = use(AuthContext);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -25,6 +25,9 @@ const Login = () => {
         loginUser(email, password)
             .then((result) => {
                 const user = result.user;
+                console.log(user?.accessToken);
+                setUser(user);
+                setLoading(false);
                 console.log(user);
                 toast.success("User logged in successfully");
                 navigate(from)

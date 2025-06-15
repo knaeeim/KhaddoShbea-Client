@@ -7,7 +7,7 @@ import useAuth from "../../Hook/useAuth";
 import { checkPassword } from "../../utilities/passwordCheking";
 
 const Register = () => {
-    const { createUser, updateUserProfile, setUser } = useAuth();
+    const { createUser, updateUserProfile, setUser, setLoading } = useAuth();
     const navigate = useNavigate();
 
     const handleRegister = (e) => {
@@ -37,6 +37,7 @@ const Register = () => {
                     .then((res) => {
                         console.log(res);
                         setUser((prevUser) => ({...prevUser, ...user}) )
+                        setLoading(false);
                         toast.success("User Created Successfully");
                         navigate("/");
                         form.reset();

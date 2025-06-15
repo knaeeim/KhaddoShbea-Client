@@ -7,31 +7,26 @@ import toast from "react-hot-toast";
 import { formateLocalDate } from "../../utilities/LocalTimeConverter";
 
 const RequestedFoods = () => {
-    const { user, logOutUser } = useAuth();
+    const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [requestedFoods, setRequestedFoods] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if(user){
+        if (user) {
             axiosSecure
-            .get(`/myRequestedFoods?email=${user?.email}`)
-            .then((res) => {
-                setLoading(false);
-                console.log(res.data);
-                setRequestedFoods(res.data);
-            })
-            .catch((error) => {
-                setLoading(false);
-                // logOutUser()
-                //     .then(() => {})
-                //     .catch((error) => {
-                //         toast.error("Failed to log out: " + error.message);
-                //     });
-                toast.error(error.message);
-            });
+                .get(`/myRequestedFoods?email=${user?.email}`)
+                .then((res) => {
+                    setLoading(false);
+                    console.log(res.data);
+                    setRequestedFoods(res.data);
+                })
+                .catch((error) => {
+                    setLoading(false);
+                    toast.error(error.message);
+                });
         }
-    }, [axiosSecure, user, logOutUser]);
+    }, []);
 
     if (loading) {
         return <Loading></Loading>;
@@ -84,7 +79,9 @@ const RequestedFoods = () => {
                                         </td>
                                         <td className="p-3">
                                             <p className="dark:text-gray-600">
-                                                {formateLocalDate(food.requestedDate)}
+                                                {formateLocalDate(
+                                                    food.requestedDate
+                                                )}
                                             </p>
                                         </td>
                                         <td className="p-3 text-right">

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import useAuth from "./useAuth";
+import { getToken } from "../Context/AuthProvider";
 // import toast from "react-hot-toast";
 
 const axiosInstance = axios.create({
@@ -8,11 +9,13 @@ const axiosInstance = axios.create({
 });
 
 const useAxiosSecure = () => {
-    const { user } = useAuth();
+    const { logOutUser } = useAuth();
 
     axiosInstance.interceptors.request.use(
         async (config) => {
-            const token = await user?.accessToken;
+            // const token = await user?.accessToken;
+            const token = getToken();
+            console.log(token);
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`;
             }
@@ -27,17 +30,14 @@ const useAxiosSecure = () => {
         (response) => response,
         (error) => {
             console.log(error);
-            // if (error.status === 401 || error.status === 403) {
-            //     logOutUser()
-            //         .then(() => {
-            //             toast.error("401 or 403 Error Happened Please Reload and Login Again")
-            //         })
-            //         .catch((error) =>
-            //             toast.error(
-            //                 `Something went wrong while logging out error is ${error}!`
-            //             )
-            //         );
-            // }
+            if (error.status === 401 || error.status === 403) {
+                logOutUser()
+                    .then(() => {
+                    })
+                    .catch((error) =>
+                        console.log(error)
+                    );
+            }
             return Promise.reject(error);
         }
     );

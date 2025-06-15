@@ -13,6 +13,10 @@ import { auth } from "../Firebase/firebase.init";
 
 const googleProvider = new GoogleAuthProvider();
 
+let token = null;
+
+export const getToken = () => token;
+
 const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
@@ -52,6 +56,20 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             setLoading(false);
+            if(currentUser){
+                currentUser.getIdToken()
+                    .then((idToken) => {
+                        token = idToken;
+                        console.log("Token: ", token);
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching ID token:", error);
+                    });
+            }
+            else {
+                token = null;
+                setLoading(false);
+            }
         });
 
         return () => {

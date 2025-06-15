@@ -73,7 +73,8 @@ const AddFood = () => {
                             type="text"
                             className="input w-full"
                             placeholder="Enter Your Food Image URL"
-                            required></input>
+                            required>
+                        </input>
                     </fieldset>
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                         <label className="fieldset-legend">Food Quantity</label>
