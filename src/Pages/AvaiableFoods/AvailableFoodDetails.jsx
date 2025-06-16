@@ -180,7 +180,7 @@ const AvailableFoodDetails = () => {
                 )}
                 {/* Open the modal using document.getElementById('ID').showModal() method */}
                 <dialog id={_id} className="modal">
-                    <div className="modal-box">
+                    <div className="modal-box max-w-4xl">
                         <img
                             src={foodImage}
                             alt={foodName}
