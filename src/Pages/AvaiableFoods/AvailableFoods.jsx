@@ -16,7 +16,7 @@ const AvailableFoods = () => {
 
     useEffect(() => {
         axiosSecure
-            .get("/foods?sortBy=date")
+            .get("/allFoods")
             .then((res) => {
                 setFoods(res.data);
                 setAllFoods(res.data);
@@ -37,6 +37,7 @@ const AvailableFoods = () => {
 
     const handleSearch = (event) => {
         event.preventDefault();
+        setSortType(false);
         if (!searchText.trim()) {
             setFoods(allFoods);
             setSubmittedSearchText("");
@@ -52,32 +53,28 @@ const AvailableFoods = () => {
 
     const handleSort = (e, sortType) => {
         e.preventDefault();
-
-        const sortedFoods = [...foods];
-        if(sortType === "date") {
-            setSubmittedSearchText("Expiry Date");
-            setFoods(sortedFoods.sort((a, b) => {
-                return new Date(a.date) - new Date(b.date)
-            }))
-            setSortType(true)
-        }
-        else if(sortType === "name-asc") {
-            setSubmittedSearchText("Name (A-Z)");
-            setSortType(true)
-            setFoods(sortedFoods.sort((a, b) => {
-                return a.foodName.localeCompare(b.foodName);
-            }))
-        }
-        else if(sortType === "name-des") {
-            setSubmittedSearchText("Name (Z-A)");
-            setSortType(true)
-            setFoods(sortedFoods.sort((a, b) => {
-                return b.foodName.localeCompare(a.foodName);
-            }))
-        }
-        else {
-            setSubmittedSearchText("");
-            setFoods(allFoods);
+        if (sortType === "dateAsc") {
+            setSubmittedSearchText("Expiry Date Asscending");
+            setSortType(true);
+            axiosSecure
+                .get("/foods?sortBy=dateAsc")
+                .then((res) => {
+                    setFoods(res.data);
+                })
+                .catch((error) => {
+                    toast.error("Failed to sort foods: " + error.message);
+                });
+        } else if (sortType === "dateDsc") {
+            setSubmittedSearchText("Expiry Date Descending");
+            setSortType(true);
+            axiosSecure
+                .get("/foods?sortBy=dateDsc")
+                .then((res) => {
+                    setFoods(res.data);
+                })
+                .catch((error) => {
+                    toast.error("Failed to sort foods: " + error.message);
+                });
         }
     };
 
@@ -115,13 +112,20 @@ const AvailableFoods = () => {
                 <select
                     className="select"
                     onChange={(e) => {
-                        handleSort(e, e.target.value, setSortType(prev => !prev));
+                        handleSort(
+                            e,
+                            e.target.value,
+                            setSortType((prev) => !prev)
+                        );
                     }}
                 >
-                    <option disabled={true} selected>Choose The Sorting Style</option>
-                    <option value={"date"}>Sort by Expiry Date</option>
-                    <option value={"name-asc"}>Sort by name (A-Z)</option>
-                    <option value={"name-des"}>Sort by name (Z-A)</option>
+                    <option disabled={true} selected>
+                        Choose The Sorting Style
+                    </option>
+                    <option value={"dateAsc"}>
+                        Sort by Expiry Date (ASC){" "}
+                    </option>
+                    <option value={"dateDsc"}>Sort by Expiry Date (DSC)</option>
                 </select>
             </div>
             {foods.length === 0 ? (
@@ -134,7 +138,9 @@ const AvailableFoods = () => {
             ) : (
                 <h1 className="text-3xl font-bold text-center mt-5">
                     {submittedSearchText
-                        ? `${sortType ? "Sort Result for" : "Search Result for"} "${submittedSearchText}"`
+                        ? `${
+                              sortType ? "Sort Result for" : "Search Result for"
+                          } "${submittedSearchText}"`
                         : "All available foods 🍊"}
                 </h1>
             )}
