@@ -17,9 +17,9 @@ const AddFood = () => {
         const { date, foodQuantity, ...foodData } = formattedData;
 
         const selectedDate = new Date(date);
-        // console.log(moment(selectedDate).isBefore(new Date()));
+        // console.log(!moment(selectedDate).isBefore(new Date()));
        
-        if (!moment(selectedDate).isBefore(new Date())) {
+        if (moment(selectedDate).isBefore(moment(), "day")) {
             toast.error(
                 "Please select a valid expiry date that is today or in the future."
             );

@@ -7,11 +7,12 @@ import Loading from "../LoadingPage/Loading";
 const AvailableFoods = () => {
     const axiosSecure = useAxiosSecure();
     const [foods, setFoods] = useState([]);
-    const [allFoods, setAllFoods] = useState([])
+    const [allFoods, setAllFoods] = useState([]);
     const [layout, setLayout] = useState(false);
     const [loading, setLoading] = useState(true);
     const [searchText, setSearchText] = useState("");
     const [submittedSearchText, setSubmittedSearchText] = useState("");
+    const [sortType, setSortType] = useState(false);
 
     useEffect(() => {
         axiosSecure
@@ -22,7 +23,11 @@ const AvailableFoods = () => {
                 setLoading(false);
             })
             .catch((error) => {
-                toast.error("Failed to fetch foods: " + error.message + "Please Reload the page");
+                toast.error(
+                    "Failed to fetch foods: " +
+                        error.message +
+                        "Please Reload the page"
+                );
             });
     }, [axiosSecure]);
 
@@ -32,25 +37,60 @@ const AvailableFoods = () => {
 
     const handleSearch = (event) => {
         event.preventDefault();
-        if(!searchText.trim()){
+        if (!searchText.trim()) {
             setFoods(allFoods);
-            setSubmittedSearchText("")
+            setSubmittedSearchText("");
             return;
         }
-        
+
         setSubmittedSearchText(searchText.trim());
-        const filterFoods = allFoods.filter((food) => food.foodName.toLowerCase().includes(searchText.toLowerCase()));
+        const filterFoods = allFoods.filter((food) =>
+            food.foodName.toLowerCase().includes(searchText.toLowerCase())
+        );
         setFoods(filterFoods);
-    }
+    };
+
+    const handleSort = (e, sortType) => {
+        e.preventDefault();
+
+        const sortedFoods = [...foods];
+        if(sortType === "date") {
+            setSubmittedSearchText("Expiry Date");
+            setFoods(sortedFoods.sort((a, b) => {
+                return new Date(a.date) - new Date(b.date)
+            }))
+            setSortType(true)
+        }
+        else if(sortType === "name-asc") {
+            setSubmittedSearchText("Name (A-Z)");
+            setSortType(true)
+            setFoods(sortedFoods.sort((a, b) => {
+                return a.foodName.localeCompare(b.foodName);
+            }))
+        }
+        else if(sortType === "name-des") {
+            setSubmittedSearchText("Name (Z-A)");
+            setSortType(true)
+            setFoods(sortedFoods.sort((a, b) => {
+                return b.foodName.localeCompare(a.foodName);
+            }))
+        }
+        else {
+            setSubmittedSearchText("");
+            setFoods(allFoods);
+        }
+    };
 
     return (
         <div className="md:max-w-[1780px] mx-auto my-10 px-4 md:px-10">
-
             <div className="text-center mb-10 space-y-6">
                 <h1 className="md:text-4xl text-2xl text-center font-bold">
-                    Search your desired food from <br /> all available foods:
+                    Get your desired food from <br /> all available foods:
                 </h1>
-                <form onSubmit={handleSearch} className="flex flex-col items-center justify-center gap-3">
+                <form
+                    onSubmit={handleSearch}
+                    className="flex flex-col items-center justify-center gap-3"
+                >
                     <input
                         onChange={(e) => setSearchText(e.target.value)}
                         // value={searchText}
@@ -59,31 +99,50 @@ const AvailableFoods = () => {
                         name="search"
                         placeholder="Search by Name.."
                     />
-                    <button className="btn btn-primary md:w-1/8 w-4/8 rounded-4xl">Search Now</button>
+                    <button className="btn btn-primary md:w-1/8 w-4/8 rounded-4xl">
+                        Search Now
+                    </button>
                 </form>
             </div>
 
-            <div className="md:flex justify-end mt-5 hidden">
+            <div className="md:flex flex justify-center md:w-full md:justify-end md:mt-5 md:gap-5">
                 <button
                     onClick={() => setLayout((prev) => !prev)}
-                    className="btn btn-md btn-primary">
+                    className="btn btn-md btn-primary hidden md:block"
+                >
                     Change Layout
                 </button>
+                <select
+                    className="select"
+                    onChange={(e) => {
+                        handleSort(e, e.target.value, setSortType(prev => !prev));
+                    }}
+                >
+                    <option disabled={true} selected>Choose The Sorting Style</option>
+                    <option value={"date"}>Sort by Expiry Date</option>
+                    <option value={"name-asc"}>Sort by name (A-Z)</option>
+                    <option value={"name-des"}>Sort by name (Z-A)</option>
+                </select>
             </div>
             {foods.length === 0 ? (
                 <div className="text-center mt-10">
                     <h2 className="text-2xl font-bold">No Foods Found</h2>
-                    <p className="text-gray-500">Try searching with a different keyword.</p>
+                    <p className="text-gray-500">
+                        Try searching with a different keyword.
+                    </p>
                 </div>
             ) : (
                 <h1 className="text-3xl font-bold text-center mt-5">
-                    {submittedSearchText ? `Search Results for "${submittedSearchText}"` : "All available foods 🍊"}
+                    {submittedSearchText
+                        ? `${sortType ? "Sort Result for" : "Search Result for"} "${submittedSearchText}"`
+                        : "All available foods 🍊"}
                 </h1>
             )}
             <div
                 className={`grid grid-cols-1 md:grid-cols-2 ${
                     layout ? "lg:grid-cols-2" : "lg:grid-cols-3"
-                } gap-3 mt-3`}>
+                } gap-3 mt-3`}
+            >
                 {foods.map((food) => (
                     <FoodCard key={food._id} food={food}></FoodCard>
                 ))}
