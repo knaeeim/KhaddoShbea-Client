@@ -1,4 +1,10 @@
-export const formateLocalDate = (date) => {
-    const [year, month, day] = new Date(date).toISOString().split('T')[0].split('-');
-    return `${year}-${month}-${day}`;
+export function formateLocalDate(dateValue) {
+    // dateValue is the JS Date (or ISO string) from your API
+    const dt = new Date(dateValue);
+    return dt.toLocaleDateString("en-BD", {
+        timeZone: "Asia/Dhaka",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
 }

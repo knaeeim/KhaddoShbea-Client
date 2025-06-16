@@ -2,6 +2,7 @@ import React from "react";
 import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import toast from "react-hot-toast";
+import moment from "moment";
 
 const AddFood = () => {
     const { user } = useAuth();
@@ -16,11 +17,9 @@ const AddFood = () => {
         const { date, foodQuantity, ...foodData } = formattedData;
 
         const selectedDate = new Date(date);
-        const today = new Date();
-        selectedDate.setHours(0, 0, 0, 0);
-        today.setHours(0, 0, 0, 0);
-
-        if (selectedDate < today) {
+        // console.log(moment(selectedDate).isBefore(new Date()));
+       
+        if (!moment(selectedDate).isBefore(new Date())) {
             toast.error(
                 "Please select a valid expiry date that is today or in the future."
             );
@@ -29,6 +28,8 @@ const AddFood = () => {
 
         foodData.date = selectedDate;
         foodData.foodQuantity = parseInt(foodQuantity);
+
+        // console.log(selectedDate);
 
         console.log(foodData);
 
@@ -73,8 +74,8 @@ const AddFood = () => {
                             type="text"
                             className="input w-full"
                             placeholder="Enter Your Food Image URL"
-                            required>
-                        </input>
+                            required
+                        ></input>
                     </fieldset>
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                         <label className="fieldset-legend">Food Quantity</label>
@@ -152,7 +153,8 @@ const AddFood = () => {
                     <textarea
                         className="textarea w-full"
                         name="notes"
-                        placeholder="Add any Additional Notes"></textarea>
+                        placeholder="Add any Additional Notes"
+                    ></textarea>
                 </fieldset>
                 <input
                     className="btn btn-primary w-full"

@@ -137,7 +137,8 @@ const AvailableFoodDetails = () => {
                             status === "available" || status === "Available"
                                 ? "bg-green-100 text-green-700"
                                 : "bg-red-100 text-red-700"
-                        }`}>
+                        }`}
+                    >
                         {status}
                     </span>
                 </p>
@@ -168,9 +169,8 @@ const AvailableFoodDetails = () => {
                 {user.email !== email ? (
                     <button
                         className="btn btn-primary mt-3 w-full"
-                        onClick={() =>
-                            document.getElementById(_id).showModal()
-                        }>
+                        onClick={() => document.getElementById(_id).showModal()}
+                    >
                         Request for this Food
                     </button>
                 ) : (
@@ -206,7 +206,8 @@ const AvailableFoodDetails = () => {
                                         status === "available"
                                             ? "bg-green-100 text-green-700"
                                             : "bg-red-100 text-red-700"
-                                    }`}>
+                                    }`}
+                                >
                                     {status}
                                 </span>
                             </p>
@@ -271,17 +272,27 @@ const AvailableFoodDetails = () => {
                                 ref={addNotesRef}
                                 className="w-full p-2 mt-2 border rounded-lg focus:outline-none focus:ring-2"
                                 rows="3"
-                                placeholder="Add any additional notes or instructions here..."></textarea>
+                                placeholder="Add any additional notes or instructions here..."
+                            ></textarea>
                         </div>
                         <div className="modal-action">
-                            <form method="dialog" className="flex items-center justify-center gap-4">
-                                <button onClick={() => document.getElementById(_id).close()} className="btn btn-warning mt-3 text-black">
+                            <form
+                                method="dialog"
+                                className="flex items-center justify-center gap-4"
+                            >
+                                <button
+                                    onClick={() =>
+                                        document.getElementById(_id).close()
+                                    }
+                                    className="btn btn-warning mt-3 text-black"
+                                >
                                     Close
                                 </button>
                                 {/* if there is a button in form, it will close the modal */}
                                 <button
                                     onClick={handleRequestedFood}
-                                    className="btn btn-primary mt-3">
+                                    className="btn btn-primary mt-3"
+                                >
                                     Request Now
                                 </button>
                             </form>

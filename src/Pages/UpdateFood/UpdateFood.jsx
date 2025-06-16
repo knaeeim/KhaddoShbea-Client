@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Loading from "../LoadingPage/Loading";
 import ErrorPage from "../ErrorPage/ErrorPage";
+import moment from "moment";
 
 const UpdateFood = () => {
     const { user } = useAuth();
@@ -44,13 +45,14 @@ const UpdateFood = () => {
         const updatedFood = Object.fromEntries(formData.entries());
         const {date, foodQuantity, ...foodData} = updatedFood;
         const selectedDate = new Date(date);
-        const today = new Date();
-        selectedDate.setHours(0, 0, 0, 0);
-        today.setHours(0, 0, 0, 0);
-        if(selectedDate < today) {
-            toast.error("Please select a valid expiry date that is today or in the future.");
+
+        if (!moment(selectedDate).isBefore(new Date())) {
+            toast.error(
+                "Please select a valid expiry date that is today or in the future."
+            );
             return;
         }
+
         foodData.date = selectedDate;
         foodData.foodQuantity = parseInt(foodQuantity);
         
