@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
-import FoodCard from "../Shared/FoodCard";
 import Loading from "../LoadingPage/Loading";
 import toast from "react-hot-toast";
 import { formateLocalDate } from "../../utilities/LocalTimeConverter";

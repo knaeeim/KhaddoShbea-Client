@@ -239,16 +239,12 @@ const AvailableFoodDetails = () => {
                                 <span className="font-semibold">
                                     Requested Time:
                                 </span>{" "}
-                                {
-                                    new Date()
-                                        .toISOString("en-BD", {
-                                            timeZone: "Asia/Dhaka",
-                                            year: "numeric",
-                                            month: "short",
-                                            day: "numeric",
-                                        })
-                                        .split("T")[0]
-                                }
+                                {new Date().toLocaleDateString("en-BD", {
+                                    timeZone: "Asia/Dhaka",
+                                    year: "numeric",
+                                    month: "short",
+                                    day: "numeric",
+                                })}
                             </p>
                             <p>
                                 <span className="font-semibold">id:</span>{" "}
