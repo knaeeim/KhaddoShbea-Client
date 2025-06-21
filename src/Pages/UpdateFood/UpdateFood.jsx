@@ -2,7 +2,7 @@ import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import { useNavigate, useParams } from "react-router";
 import toast from "react-hot-toast";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Loading from "../LoadingPage/Loading";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import moment from "moment";
@@ -12,6 +12,7 @@ const UpdateFood = () => {
     const axiosSecure = useAxiosSecure();
     const { id } = useParams();
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
 
     const mutation = useMutation({
         mutationFn: (updatedFood) => {
@@ -20,6 +21,7 @@ const UpdateFood = () => {
         onSuccess: (data) => {
             if(data.data.modifiedCount){
                 toast.success("Food updated successfully!");
+                queryClient.invalidateQueries(['food', id]);
                 navigate("/manageMyFoods");
             }
             else {
@@ -28,12 +30,7 @@ const UpdateFood = () => {
         }
     });
 
-    const {
-        data: food,
-        isError,
-        error,
-        isLoading,
-    } = useQuery({
+    const { data: food, isError, error, isLoading } = useQuery({
         queryKey: ["food", id],
         queryFn: () => axiosSecure.get(`/foods/${id}`).then((res) => res.data),
     });
