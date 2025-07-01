@@ -107,8 +107,11 @@ const UpdateUser = () => {
                                     />
                                 </fieldset>
                                 <div className="modal-action">
-                                    <div method="dialog">
+                                    <div method="dialog" className="flex gap-3">
                                         {/* if there is a button in form, it will close the modal */}
+                                        <button type="button" className="btn btn-warning" onClick={() => document.getElementById("my_modal_1").close()}>
+                                            Close
+                                        </button>
                                         <button type="submit" className="btn btn-primary">
                                             Update
                                         </button>

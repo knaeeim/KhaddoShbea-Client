@@ -22,7 +22,7 @@ const UpdateFood = () => {
             if(data.data.modifiedCount){
                 toast.success("Food updated successfully!");
                 queryClient.invalidateQueries(['food', id]);
-                navigate("/manageMyFoods");
+                navigate("/dashboard/manageMyFoods");
             }
             else {
                 toast.error("Please change at least one field to update the food.");

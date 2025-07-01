@@ -59,7 +59,7 @@ const ManageFoods = () => {
     }
 
     return (
-        <div className="md:max-w-[1780px] mx-auto my-10 px-4 md:px-10">
+        <div className="max-w-[90%] mx-auto my-10 px-4 md:px-0">
             <div>
                 <h1 className="text-3xl font-bold text-center">
                     Your Posted foods, Manage it According to your wishes.
@@ -117,7 +117,7 @@ const ManageFoods = () => {
                                         </td>
                                         <td className="p-3 flex gap-2">
                                             <Link
-                                                to={`/manageMyFoods/update/${food._id}`}>
+                                                to={`/dashboard/manageMyFoods/update/${food._id}`}>
                                                 <button className="btn btn-xs btn-secondary">
                                                     Update
                                                 </button>

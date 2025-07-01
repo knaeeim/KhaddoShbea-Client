@@ -79,7 +79,7 @@ const AvailableFoods = () => {
     };
 
     return (
-        <div className="md:max-w-[1780px] mx-auto my-10 px-4 md:px-10">
+        <div className="md:max-w-[90%] mx-auto my-10 px-4 md:px-0">
             <div className="text-center mb-10 space-y-6">
                 <h1 className="md:text-4xl text-2xl text-center font-bold">
                     Get your desired food from <br /> all available foods:

@@ -25,14 +25,14 @@ const RequestedFoods = () => {
                     toast.error(error.message);
                 });
         }
-    }, []);
+    }, [user, axiosSecure]);
 
     if (loading) {
         return <Loading></Loading>;
     }
 
     return (
-        <div className="md:max-w-[1780px] mx-auto my-10 px-4 md:px-10">
+        <div className="max-w-[90%] mx-auto my-10 px-4 md:px-0">
             <div>
                 <h1 className="text-3xl font-bold text-center">
                     All Requested food by {user.displayName}...

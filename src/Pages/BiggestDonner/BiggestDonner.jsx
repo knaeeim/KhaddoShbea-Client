@@ -37,7 +37,7 @@ const BiggestDonner = () => {
                     significant impact on our community.
                 </p>
             </div>
-            <div className="max-w-[1480px] w-full mx-auto px-5">
+            <div className="w-full mx-auto">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-5">
                     {items.map((item, index) => (
                         <BiggestDonnerCard

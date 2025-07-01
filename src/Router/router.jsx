@@ -12,6 +12,7 @@ import Home from "../Pages/Home/Home";
 import UpdateFood from "../Pages/UpdateFood/UpdateFood";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import UpdateUser from "../Pages/UpdateUser/UpdateUser";
+import DashBoardLayOut from "../LayOuts/DashBoardLayOut";
 
 export const router = createBrowserRouter([
     {
@@ -32,12 +33,6 @@ export const router = createBrowserRouter([
                 element: <Login></Login>
             }, 
             {
-                path: '/addFood',
-                element: <PrivateRoutes>
-                    <AddFood></AddFood>
-                </PrivateRoutes>
-            }, 
-            {
                 path: '/availableFoods',
                 element: <AvailableFoods></AvailableFoods>
             }, 
@@ -48,29 +43,44 @@ export const router = createBrowserRouter([
                 </PrivateRoutes>
             },
             {
-                path: '/manageMyFoods',
-                element: <PrivateRoutes>
-                    <ManageFoods></ManageFoods>
-                </PrivateRoutes>
-            },
-            {
-                path: '/manageMyFoods/update/:id', 
-                element: <PrivateRoutes>
-                    <UpdateFood></UpdateFood>
-                </PrivateRoutes>
-            },
-            {
-                path: '/requestedFoods', 
-                element: <PrivateRoutes>
-                    <RequestedFoods></RequestedFoods>
-                </PrivateRoutes>
-            },
-            {
                 path: "/updateUserInfo", 
                 element: <PrivateRoutes>
                     <UpdateUser></UpdateUser>
                 </PrivateRoutes>
             }
         ]
+    },
+    {
+        path:"/dashboard",
+        element: <PrivateRoutes>
+            <DashBoardLayOut></DashBoardLayOut>
+        </PrivateRoutes>,
+        errorElement: <ErrorPage></ErrorPage>,
+        children: [
+            {
+                path: 'addFood',
+                element: <PrivateRoutes>
+                    <AddFood></AddFood>
+                </PrivateRoutes>
+            },
+            {
+                path: 'manageMyFoods',
+                element: <PrivateRoutes>
+                    <ManageFoods></ManageFoods>
+                </PrivateRoutes>
+            },
+            {
+                path: 'manageMyFoods/update/:id', 
+                element: <PrivateRoutes>
+                    <UpdateFood></UpdateFood>
+                </PrivateRoutes>
+            },
+            {
+                path: 'requestedFoods', 
+                element: <PrivateRoutes>
+                    <RequestedFoods></RequestedFoods>
+                </PrivateRoutes>
+            },
+        ] 
     }
 ])

@@ -30,7 +30,7 @@ const FeaturedFoods = () => {
 
     return (
         <div>
-            <div className="md:max-w-[1780px] mx-auto my-10 px-4 md:px-10">
+            <div className="my-10">
                 <div className="text-center mb-12">
                     <h1 className="md:text-4xl text-2xl font-bold text-center mb-4">
                             Featured Foods

@@ -3,7 +3,7 @@ import CountUp from "react-countup";
 
 const Counting = () => {
     return (
-        <div className="w-11/12 mx-auto rounded-2xl md:px-10 md:py-20 mt-8 pb-8">
+        <div className="w-12/12 mx-auto rounded-2xl md:py-20 mt-8 pb-8">
             <div className="text-center space-y-4 md:w-9/12 w-full mx-auto">
                 <h1 className="md:text-4xl text-lg font-bold">
                     Together, We Fight Hunger & Waste

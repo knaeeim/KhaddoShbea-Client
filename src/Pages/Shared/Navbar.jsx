@@ -50,50 +50,12 @@ const Navbar = () => {
                     Available Foods
                 </NavLink>
             </li>
-
-            {user && (
-                <>
-                    <li>
-                        <NavLink
-                            className={({ isActive }) =>
-                                isActive
-                                    ? "border-b-3 px-3 py-1.5 mx-2"
-                                    : "mx-2 px-3 py-1.5"
-                            }
-                            to="/addFood">
-                            Add Food
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            className={({ isActive }) =>
-                                isActive
-                                    ? "border-b-3 px-3 py-1.5 mx-2"
-                                    : "mx-2 px-3 py-1.5"
-                            }
-                            to="/manageMyFoods">
-                            Manage My Foods
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            className={({ isActive }) =>
-                                isActive
-                                    ? "border-b-3 px-3 py-1.5 mx-2"
-                                    : "mx-2 px-3 py-1.5"
-                            }
-                            to="/requestedFoods">
-                            Requested Foods
-                        </NavLink>
-                    </li>
-                </>
-            )}
         </>
     );
 
     return (
-        <div>
-            <div className="navbar p-0 bg-base-100 shadow-lg md:px-8 px-2">
+        <div className="bg-base-100 shadow-lg sticky top-0 z-50">
+            <div className="navbar p-0 max-w-[90%] mx-auto">
                 <div className="navbar-start gap-1">
                     {/* dropdown three line */}
                     <div className="dropdown">
@@ -121,7 +83,7 @@ const Navbar = () => {
                         </ul>
                     </div>
                     {/* div with image and title */}
-                    <div className="flex items-center justify-center gap-2">
+                    <div className="flex items-center justify-center mr-2">
                         <img
                             className="w-16"
                             src="https://i.ibb.co/wb7VMSN/Khaddo-Sheba-90-x-50-px.png"
@@ -164,6 +126,11 @@ const Navbar = () => {
                                     </li>
                                 </ul>
                             </div>
+                            <Link
+                                to="/dashboard"
+                                className="btn btn-primary btn-sm">
+                                Dashboard
+                            </Link>
                             <button
                                 onClick={handleLogOut}
                                 className="btn btn-neutral btn-sm">
