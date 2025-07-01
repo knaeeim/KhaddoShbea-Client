@@ -5,7 +5,7 @@ import Footer from '../Pages/Shared/Footer';
 
 const RootLayOut = () => {
     return (
-        <div>
+        <div className=''>
             <Navbar></Navbar>
             <div className='min-h-[calc(100vh-300px)]'>
                 <Outlet></Outlet>
